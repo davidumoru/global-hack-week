@@ -92,7 +92,6 @@ app.post("/send-cat-fact", async (req, res) => {
   const morseFact = textToMorse(catFact);
 
   await sendSms(morseFact, phoneNumber);
-  console.log(`${morseFact} sent to ${phoneNumber}`);
   res.json({ message: "Cat fact sent in Morse code!" });
 });
 
