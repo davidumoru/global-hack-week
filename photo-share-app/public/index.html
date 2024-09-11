@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Sharing App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Your Photo</h1>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="image" required>
+            <button type="submit">Upload</button>
+        </form>
+        <div id="response"></div>
+    </div>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('response').innerHTML = 
+                  `<p>Image uploaded successfully! <a href="${data.imageUrl}" target="_blank">View Image</a></p>`;
+            })
+            .catch(() => {
+                document.getElementById('response').innerHTML = '<p>Failed to upload image</p>';
+            });
+        });
+    </script>
+</body>
+</html>
