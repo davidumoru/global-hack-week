@@ -1,6 +1,7 @@
 const express = require("express");
 const { auth, requiresAuth } = require("express-openid-connect");
 const app = express();
+const PORT = process.env.PORT || 3000;
 require("dotenv").config();
 
 const config = {
@@ -22,6 +23,6 @@ app.get("/profile", requiresAuth(), (req, res) => {
   res.send(JSON.stringify(req.oidc.user, null, 2));
 });
 
-app.listen(3000, function () {
-  console.log("Listening on http://localhost:3000");
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
